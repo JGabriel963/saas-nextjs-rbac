@@ -1,11 +1,15 @@
 {
-  "name": "@repo/math",
+  "name": "@repo/auth",
   "version": "0.0.0",
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
-    "@repo/eslint-config": "workspace:*"
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
+  },
+  "dependencies": {
+    "@casl/ability": "^6.7.3",
+    "zod": "^4.1.11"
   }
 }
