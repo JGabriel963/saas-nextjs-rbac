@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { compare } from "bcryptjs";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
@@ -16,6 +15,7 @@ export async function getProfile(app: FastifyInstance) {
         schema: {
           tags: ["auth"],
           summary: "Get authenticated user profile",
+          security: [{ bearerAuth: [] }],
           response: {
             200: z.object({
               user: z.object({
