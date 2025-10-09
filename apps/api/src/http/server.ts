@@ -17,6 +17,10 @@ import { requestPasswordRecover } from "./routes/auth/request-password-recover";
 import { resetPassword } from "./routes/auth/reset-password";
 import { authenticateWithGithub } from "./routes/auth/authenticate-with-github";
 import { env } from "@repo/env";
+import { createOrganization } from "./routes/orgs/create-organization";
+import { getMembership } from "./routes/orgs/get-membership";
+import { getOrganization } from "./routes/orgs/get-organization";
+import { getOrganizations } from "./routes/orgs/get-organizations";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -63,6 +67,15 @@ app.register(getProfile);
 app.register(requestPasswordRecover);
 app.register(resetPassword);
 
+// Routes ["Organization"]
+app.register(createOrganization);
+app.register(getMembership);
+app.register(getOrganization);
+app.register(getOrganizations);
+
 app.listen({ port: env.SERVER_PORT }).then(() => {
   console.log("HTTP server running!");
 });
+
+// Token
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM1ZWM5NS03NDQ1LTRlZGYtOTk2MS1mNWIxZjlmODQ2Y2UiLCJpYXQiOjE3NjAwMDA3NTEsImV4cCI6MTc2MDYwNTU1MX0.E0uLQgi-yfcKU_6Wk-BJhqaEQxhrVmOntiwhUYwYEBc

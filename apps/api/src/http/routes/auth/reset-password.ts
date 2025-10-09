@@ -1,9 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import { compare } from "bcryptjs";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { email, z } from "zod";
-import { BadRequestError } from "../_errors/bad-request-error";
+import { z } from "zod";
 import { UnauthorizedError } from "../_errors/unauthorized-error";
 import { hash } from "bcryptjs";
 
@@ -12,7 +10,7 @@ export async function resetPassword(app: FastifyInstance) {
     "/password/reset",
     {
       schema: {
-        tags: ["auth"],
+        tags: ["Auth"],
         summary: "Reset Passwod",
         body: z.object({
           code: z.string(),
