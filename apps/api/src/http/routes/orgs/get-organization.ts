@@ -1,13 +1,13 @@
+import { auth } from "@/http/middlewares/auth";
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { auth } from "../middlewares/auth";
 import { z } from "zod";
 
 export async function getOrganization(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .post(
+    .get(
       "/organizations/:slug",
       {
         schema: {

@@ -21,6 +21,8 @@ import { createOrganization } from "./routes/orgs/create-organization";
 import { getMembership } from "./routes/orgs/get-membership";
 import { getOrganization } from "./routes/orgs/get-organization";
 import { getOrganizations } from "./routes/orgs/get-organizations";
+import { updateOrganization } from "./routes/orgs/update-organization";
+import { shutdownOrganization } from "./routes/orgs/shutdown-organization";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -72,10 +74,9 @@ app.register(createOrganization);
 app.register(getMembership);
 app.register(getOrganization);
 app.register(getOrganizations);
+app.register(updateOrganization);
+app.register(shutdownOrganization);
 
 app.listen({ port: env.SERVER_PORT }).then(() => {
   console.log("HTTP server running!");
 });
-
-// Token
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM1ZWM5NS03NDQ1LTRlZGYtOTk2MS1mNWIxZjlmODQ2Y2UiLCJpYXQiOjE3NjAwMDA3NTEsImV4cCI6MTc2MDYwNTU1MX0.E0uLQgi-yfcKU_6Wk-BJhqaEQxhrVmOntiwhUYwYEBc
