@@ -53,7 +53,7 @@ model Account {
   providerAccountId String @unique @map("provider_account_id")
 
   userId String @map("user_id")
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Um usuário só poder ter uma conta do Github por vez.
   @@unique([provider, userId])
@@ -72,11 +72,11 @@ model Invite {
   role Role
   createdAt DateTime @default(now()) @map("created_at")
 
-  author User? @relation(fields: [userId], references: [id])
-  userId String? @map("user_id")
+  author User? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId String? @map("author_id")
 
   organizationId String @map("organization_id")
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@unique([email, organizationId])
   @@index([email])
@@ -88,9 +88,9 @@ model Member {
   role Role @default(MEMBER)
 
   organizationId String @map("organization_id")
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
 
   @@unique([organizationId, userId])
@@ -126,7 +126,7 @@ model Project {
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String       @map("organization_id")
 
   owner User @relation(fields: [ownerId], references: [id])
