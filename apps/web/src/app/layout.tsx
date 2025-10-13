@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Saas RBCA Next",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
