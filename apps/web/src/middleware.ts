@@ -1,27 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
-  const isAuthenticated = !!token;
-
   const { pathname } = request.nextUrl;
 
-  // Páginas públicas
-  const isPublicPage =
-    pathname.startsWith("/auth/sign-in") ||
-    pathname.startsWith("/auth/sign-up");
+  const response = NextResponse.next();
 
-  // Se não está autenticado e tenta acessar página privada
-  if (!isAuthenticated && !isPublicPage) {
-    return NextResponse.redirect(new URL("/auth/sign-in", request.url));
+  if (pathname.startsWith("/org")) {
+    const [, , slug] = pathname.split("/");
+
+    response.cookies.set("org", slug);
+  } else {
+    response.cookies.delete("org");
   }
 
-  // Se está autenticado e tenta acessar página de login
-  if (isAuthenticated && isPublicPage) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {

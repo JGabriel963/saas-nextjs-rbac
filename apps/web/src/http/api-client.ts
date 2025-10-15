@@ -16,8 +16,6 @@ export const api = kt.create({
         }
 
         const token = await getCookie("token", { cookies: cookieStore });
-        console.log("TESTEE");
-        console.log({ token });
 
         if (token) {
           request.headers.set("Authorization", `Bearer ${token}`);
