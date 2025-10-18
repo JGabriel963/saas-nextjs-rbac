@@ -5,12 +5,18 @@ import { Header } from "@/components/header";
 
 export default function AppLayout({
   children,
+  sheet,
 }: Readonly<{
   children: React.ReactNode;
+  sheet: React.ReactNode;
 }>) {
   if (!isAuthenticated()) {
     redirect("/auth/sign-in");
   }
 
-  return <> {children} </>;
+  return (
+    <>
+      {children} {sheet}
+    </>
+  );
 }
