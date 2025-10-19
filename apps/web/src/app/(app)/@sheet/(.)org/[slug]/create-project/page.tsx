@@ -6,9 +6,9 @@ import {
 } from "@/components/ui/sheet";
 import React from "react";
 import { InterceptedSheetContent } from "@/components/intercepted-sheet-content";
-import OrganizationForm from "../../org/organization-form";
+import { ProjectForm } from "@/app/(app)/org/[slug]/create-project/project-form";
 
-export default function CreateOrganization() {
+export default function CreateProject() {
   return (
     <Sheet defaultOpen>
       <InterceptedSheetContent>
@@ -17,7 +17,7 @@ export default function CreateOrganization() {
         </SheetHeader>
 
         <div className="px-4">
-          <OrganizationForm />
+          <ProjectForm />
         </div>
       </InterceptedSheetContent>
     </Sheet>
