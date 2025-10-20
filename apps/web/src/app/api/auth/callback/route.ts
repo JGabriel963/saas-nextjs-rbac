@@ -1,3 +1,4 @@
+import { acceptInvite } from "@/http/accept-invite";
 import { signInWithGithub } from "@/http/sign-in-with-github";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -23,8 +24,18 @@ export async function GET(request: NextRequest) {
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });
 
+  const inviteId = cookiesStore.get("inviteId")?.value;
+
+  if (inviteId) {
+    try {
+      await acceptInvite(inviteId);
+      cookiesStore.delete("inviteId");
+    } catch (error) {}
+  }
+
   const redirect = request.nextUrl.clone(); // -> http://localhost:3000/api/auth/callback?code='123'
   redirect.pathname = "/"; // -> http://localhost:3000/
+  redirect.search = "";
 
   return NextResponse.redirect(redirect);
 }

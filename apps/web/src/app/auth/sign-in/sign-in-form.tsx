@@ -13,7 +13,7 @@ import githubIcon from "@/assets/github.svg";
 import { FormEvent, useState, useTransition } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useFormState } from "@/hooks/use-form-state";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signInWithGithub } from "../actions";
 
 export function SignInForm() {
@@ -22,6 +22,7 @@ export function SignInForm() {
   //     { success: false, message: null, errors: null }
   //   );
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [{ success, message, errors }, handleSignIn, isPending] = useFormState(
     signInWithEmailAndPassword,
@@ -45,7 +46,12 @@ export function SignInForm() {
         )}
         <div className="space-y-1">
           <Label htmlFor="email">E-mail</Label>
-          <Input name="email" type="text" id="email" />
+          <Input
+            name="email"
+            type="text"
+            id="email"
+            defaultValue={searchParams.get("email") ?? ""}
+          />
           {errors?.email && (
             <span className="text-xs font-medium text-red-500 dark:text-red-400">
               {" "}

@@ -1,5 +1,4 @@
-import { signInWithEmailAndPassword } from "@/app/auth/sign-in/actions";
-import { FormEvent, useState, useTransition } from "react";
+import { FormEvent, startTransition, useState, useTransition } from "react";
 import { requestFormReset } from "react-dom";
 
 interface FormState {
@@ -22,16 +21,16 @@ export function useFormState(
   );
   const [isPending, setIsPending] = useTransition();
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const form = event.currentTarget;
-    const formData = new FormData(form);
+    const data = new FormData(form);
 
-    setIsPending(async () => {
-      const state = await action(formData);
+    startTransition(async () => {
+      const state = await action(data);
 
-      if (state.success === true && onSuccess) {
+      if (state.success && onSuccess) {
         await onSuccess();
       }
 
